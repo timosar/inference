@@ -22,7 +22,7 @@ builtin support for apple silicon metal (MLX) offloading (tensor math including 
 """
 
 if len(sys.argv) < 2:
-    print("usage: python3.11 newtest.py <model.gguf> 'prompt'")
+    print("usage: python3.11 main.py <model.gguf> 'prompt'")
     sys.exit()
 else:
     path, prompt = sys.argv[1], sys.argv[2]

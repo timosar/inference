@@ -1,6 +1,9 @@
 import sys, struct, math, platform
 import numpy as np
-import metal
+try:
+    import metal
+except ImportError:
+    metal = None
 import time
 
 """
@@ -95,7 +98,7 @@ rope_base = setting("rope.freq_base", 10000.0)
 eos = info.get("tokenizer.ggml.eos_token_id", 2)
 rope_style = "half" if arch.startswith("qwen") else "pair"
 
-apple = sys.platform == "darwin" and platform.machine() == "arm64"
+apple = metal is not None and sys.platform == "darwin" and platform.machine() == "arm64"
 if apple:
     W = {name: metal.array(weight) for name, weight in W.items()}
     step = metal.make_step(W, n_layers, n_heads, n_kv, head, rope_base, rope_style)
@@ -221,4 +224,3 @@ for n in range(64):
 elapsed = time.perf_counter() - start
 print()
 print(f"{n_tokens / elapsed:.1f} tok/s ({n_tokens} tokens in {elapsed:.2f}s)")
-

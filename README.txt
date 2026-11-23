@@ -4,3 +4,6 @@ a very tiny and minimal inference engine capable of running llama2/llama3 & qwen
 
 $ wget https://huggingface.co/Qwen/Qwen2.5-0.5B-Instruct-GGUF/resolve/main/qwen2.5-0.5b-instruct-fp16.gguf
 $ python3 main.py qwen2.5-0.5b-instruct-fp16.gguf "why is the sky blue?"
+$
+$ # inference accelerated via Apple METAL Shaders. achieves roughly 100tps
+$ METAL_QUANT=int8 python3 main.py qwen2.5-0.5b-instruct-fp16.gguf "why is the sky blue?"
